@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     font-family: Arial;
     background: #f4f4f4;
@@ -19,4 +20,27 @@ body {
     background: #ddd;
     padding: 8px;
     margin: 5px 0;
+=======
+body {
+    font-family: Arial;
+    background: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.comment {
+    background: #ddd;
+    padding: 8px;
+    margin: 5px 0;
+>>>>>>> 1636aaac2804ebd505568da83c1b62486485a03e
 }
