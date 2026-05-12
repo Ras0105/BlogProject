@@ -4,7 +4,7 @@ __pycache__/
 *.pyo
 
 # Django
-*.sqlite3
+# *.sqlite3
 local_settings.py
 media/
 
