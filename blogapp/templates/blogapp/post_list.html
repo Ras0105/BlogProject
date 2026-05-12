@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog Posts – MyBlog{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'blogapp/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Blog Posts</h1>
+
+{% for post in page_obj %}
+  <div class="card">
+    <h2>{{ post.title }}</h2>
+    <small>
+      {{ post.category }}
+      {% if post.author %} · by {{ post.author.username }}{% endif %}
+      · {{ post.created_at|date:"d M Y" }}
+    </small>
+    <p>{{ post.content|truncatewords:15 }}</p>
+    <a href="{% url 'post_detail' post.id %}">Read More →</a>
+  </div>
+{% empty %}
+  <p>No posts yet. <a href="{% url 'create_post' %}">Be the first to write one!</a></p>
+{% endfor %}
+
+{% if page_obj.has_other_pages %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">← Previous</a>
+    {% endif %}
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next →</a>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}

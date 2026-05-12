@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} – MyBlog{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'blogapp/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<small>
+  {{ post.category }}
+  {% if post.author %} · by {{ post.author.username }}{% endif %}
+  · {{ post.created_at|date:"d M Y" }}
+</small>
+
+<div class="card">
+  <p>{{ post.content }}</p>
+</div>
+
+<a href="{% url 'post_list' %}">← Back to Posts</a>
+
+<h3>Comments ({{ comments.count }})</h3>
+
+{% for comment in comments %}
+  <div class="comment">
+    <b>{{ comment.author }}</b>: {{ comment.text }}
+    <small>{{ comment.created_at|date:"d M Y" }}</small>
+  </div>
+{% empty %}
+  <p>No comments yet. Be the first!</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+  <h4>Add a Comment</h4>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Comment</button>
+  </form>
+{% else %}
+  <p><a href="{% url 'login' %}">Login</a> to leave a comment.</p>
+{% endif %}
+
+{% endblock %}
